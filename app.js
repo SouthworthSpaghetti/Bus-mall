@@ -14,6 +14,7 @@ var selectionThreshold = 4;
 
 
 var handleDomSelection = function(event){
+  event.preventDefault();
   var itemSelected = event.target.id;
 
   switch(itemSelected){
@@ -37,17 +38,27 @@ var handleDomSelection = function(event){
     domSimulatorParent.removeEventListener('click', handleDomSelection);
     alert('Thanks for your important feedback. We appreciate your support.')
 
-    var finalTally = MarketItem.allItems.clickMeter(function(a , b{return b - a}));
+    
+    // var finalTally = [];
+    // finalTally.length = selectionThreshold;
+
+
+    // for (var j = 0; j < selectionThreshold; j++){
+    //   for (var jj = 0; jj < MarketItem.allItems.length; jj++){
+    //     finalTally[j] = MarketItem.allItems.clickMeter[j];
+    //   }
+    // }
+    // for (var ii = 0; ii < MarketItem.allItems.length; ii++) {
+    //   if (finalTally[i] === MarketItem.allItems.clickMeter[ii]) {
+    //     domListItem.textContent = MarketItem.allItems.name + ' was viewed a total of ' + MarketItem.allItems.viewMeter + ' times. And was selected ' + finalTally[i] + ' times.';
+    // var finalTally = MarketItem.allItems.clickMeter(function(a , b){return b - a});
 
     var domListHead = document.getElementById('listOfFavoriteItems');
     for(var i = 0; i < MarketItem.allItems.length; i++){
       var domListItem = document.createElement('li');
-      for (var ii = 0; ii < MarketItem.allItems.length; ii++){
-        if(finalTally[i]) === MarketItem.allItems.clickMeter[ii]{
-          domListItem.textContent = MarketItem.allItems.name + ' was viewed a total of ' + MarketItem.allItems.viewMeter + ' times. And was selected ' + finalTally[i] + ' times.';
+      domListItem.textContent = MarketItem.allItems[i].name + ' was viewed a total of ' + MarketItem.allItems[i].viewMeter + ' times. And was selected ' + MarketItem.allItems[i].clickMeter + ' times.';
+      domListHead.appendChild(domListItem);
         }
-      }
-    }
   }else{
     renderSimulation();
   }
@@ -80,7 +91,7 @@ function renderSimulation(){
 
 
 function getRandomItem(){
-  var itemIndex = floor.Math(random() * (MarketItem.allItems.length));
+  var itemIndex = Math.floor(Math.random() * (MarketItem.allItems.length));
   return itemIndex;
 }
 
@@ -94,26 +105,26 @@ function MarketItem(name, srcImage){
 }
 MarketItem.allItems = [];
 
-new MarketItem('bubblegum','bubblegum.jpg');
-new MarketItem('breakfast', 'breakfast.jpg');
-new MarketItem('boots', 'boots.jpg');
-new MarketItem('bathroom', 'bathroom.jpg');
-new MarketItem('chair', 'chair.jpg');
-new MarketItem('cthulhu', 'cthulhu.jpg')
-new MarketItem('dog-duck', 'dog - duck.jpg');
-new MarketItem('dragon', 'dragon.jpg');
-new MarketItem('pen', 'pen.jpg');
-new MarketItem('pet-sweep', 'pet - sweep.jpg');
-new MarketItem('scissors', 'scissors.jpg');
-new MarketItem('shark', 'shark.jpg');
-new MarketItem('sweep', 'sweep.png');
-new MarketItem('tauntaun', 'tauntaun.jpg');
-new MarketItem('unicorn', 'unicorn.jpg');
-new MarketItem('usb', 'usb.gif');
-new MarketItem('water - can' ,'water - can.jpg');
-new MarketItem('wine-glass', 'wine - glass.jpg');
-new MarketItem('bag', 'bag.jpg');
-new MarketItem('banana', 'banana.jpg');
+new MarketItem('bubblegum','/img/bubblegum.jpg');
+new MarketItem('breakfast', '/img/breakfast.jpg');
+new MarketItem('boots', '/img/boots.jpg');
+new MarketItem('bathroom', '/img/bathroom.jpg');
+new MarketItem('chair', '/img/chair.jpg');
+new MarketItem('cthulhu', '/img/cthulhu.jpg')
+new MarketItem('dog-duck', '/img/dog-duck.jpg');
+new MarketItem('dragon', '/img/dragon.jpg');
+new MarketItem('pen', '/img/pen.jpg');
+new MarketItem('pet-sweep', '/img/pet-sweep.jpg');
+new MarketItem('scissors', '/img/scissors.jpg');
+new MarketItem('shark', '/img/shark.jpg');
+new MarketItem('sweep', '/img/sweep.png');
+new MarketItem('tauntaun', '/img/tauntaun.jpg');
+new MarketItem('unicorn', '/img/unicorn.jpg');
+new MarketItem('usb', '/img/usb.gif');
+new MarketItem('water - can','/img/water-can.jpg');
+new MarketItem('wine-glass', '/img/wine-glass.jpg');
+new MarketItem('bag', '/img/bag.jpg');
+new MarketItem('banana', '/img/banana.jpg');
 
 
 renderSimulation();

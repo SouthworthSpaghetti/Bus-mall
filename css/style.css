@@ -1,0 +1,17 @@
+section {
+  height: 400px;
+  width: 900px;
+  float: left;
+  margin-left: 75px;
+}
+
+img {
+  height: 250px;
+  width: 250px;
+}
+
+article {
+  height: 400px;
+  width: 500px;
+  float: left;
+}
