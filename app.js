@@ -42,8 +42,11 @@ var handleDomSelection = function(event){
     var domListHead = document.getElementById('listOfFavoriteItems');
     for(var i = 0; i < MarketItem.allItems.length; i++){
       var domListItem = document.createElement('li');
-      domListItem.s finalTally[i]
-
+      for (var ii = 0; ii < MarketItem.allItems.length; ii++){
+        if(finalTally[i]) === MarketItem.allItems.clickMeter[ii]{
+          domListItem.textContent = MarketItem.allItems.name + ' was viewed a total of ' + MarketItem.allItems.viewMeter + ' times. And was selected ' + finalTally[i] + ' times.';
+        }
+      }
     }
   }else{
     renderSimulation();
@@ -113,3 +116,4 @@ new MarketItem('bag', 'bag.jpg');
 new MarketItem('banana', 'banana.jpg');
 
 
+renderSimulation();
