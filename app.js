@@ -16,29 +16,31 @@ var selectionThreshold = 4;
 var handleDomSelection = function(event){
   event.preventDefault();
   var itemSelected = event.target.id;
-
+  var booleanProperClick = false;
   switch(itemSelected){
-    case 'left':
-      selectionTally++;
-      MarketItem.allItems[leftIndex].clickMeter++;
-      break;
-    case 'middle':
-      selectionTally++;
-      MarketItem.allItems[middleIndex].clickMeter++;
-      break;
-    case 'right':
-      selectionTally++;
-      MarketItem.allItems[rightIndex].clickMeter++;
-      break;
-    default:
-      alert('Please do kindly select the one item you would prefer to buy.');
+  case 'left':
+    booleanProperClick = true;
+    selectionTally++;
+    MarketItem.allItems[leftIndex].clickMeter++;
+    break;
+  case 'middle':
+    booleanProperClick = true;
+    selectionTally++;
+    MarketItem.allItems[middleIndex].clickMeter++;
+    break;
+  case 'right':
+    booleanProperClick = true;
+    selectionTally++;
+    MarketItem.allItems[rightIndex].clickMeter++;
+    break;
+  default:
+    alert('Please do kindly select the one item you would prefer to buy.');
   }
 
   if (selectionTally === selectionThreshold){
     domSimulatorParent.removeEventListener('click', handleDomSelection);
-    alert('Thanks for your important feedback. We appreciate your support.')
+    alert('Thanks for your important feedback. We appreciate your support.');
 
-    
     // var finalTally = [];
     // finalTally.length = selectionThreshold;
 
@@ -58,12 +60,10 @@ var handleDomSelection = function(event){
       var domListItem = document.createElement('li');
       domListItem.textContent = MarketItem.allItems[i].name + ' was viewed a total of ' + MarketItem.allItems[i].viewMeter + ' times. And was selected ' + MarketItem.allItems[i].clickMeter + ' times.';
       domListHead.appendChild(domListItem);
-        }
-  }else{
+    }
+  } else if (booleanProperClick === true){
     renderSimulation();
   }
-  
-  
 }
 
 domSimulatorParent.addEventListener('click', handleDomSelection);
@@ -72,7 +72,7 @@ domSimulatorParent.addEventListener('click', handleDomSelection);
 
 function renderSimulation(){
   do{
-  leftIndex = getRandomItem();
+    leftIndex = getRandomItem();
     middleIndex = getRandomItem();
     // rightIndex = getRandomItem();
   } while(leftIndex === middleIndex);
@@ -83,7 +83,6 @@ function renderSimulation(){
   MarketItem.allItems[leftIndex].viewMeter++;
   MarketItem.allItems[middleIndex].viewMeter++;
   MarketItem.allItems[rightIndex].viewMeter++;
-  
   domSimulatorLeft.src = MarketItem.allItems[leftIndex].srcImage;
   domSimulatorMiddle.src = MarketItem.allItems[middleIndex].srcImage;
   domSimulatorRight.src = MarketItem.allItems[rightIndex].srcImage;
