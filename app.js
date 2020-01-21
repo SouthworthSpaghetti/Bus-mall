@@ -16,17 +16,20 @@ var selectionThreshold = 4;
 var handleDomSelection = function(event){
   event.preventDefault();
   var itemSelected = event.target.id;
-
+  var booleanProperClick = false;
   switch(itemSelected){
     case 'left':
+      booleanProperClick = true;
       selectionTally++;
       MarketItem.allItems[leftIndex].clickMeter++;
       break;
     case 'middle':
+      booleanProperClick = true;
       selectionTally++;
       MarketItem.allItems[middleIndex].clickMeter++;
       break;
     case 'right':
+      booleanProperClick = true;
       selectionTally++;
       MarketItem.allItems[rightIndex].clickMeter++;
       break;
@@ -36,7 +39,7 @@ var handleDomSelection = function(event){
 
   if (selectionTally === selectionThreshold){
     domSimulatorParent.removeEventListener('click', handleDomSelection);
-    alert('Thanks for your important feedback. We appreciate your support.')
+    alert('Thanks for your important feedback. We appreciate your support.');
 
     
     // var finalTally = [];
@@ -59,7 +62,7 @@ var handleDomSelection = function(event){
       domListItem.textContent = MarketItem.allItems[i].name + ' was viewed a total of ' + MarketItem.allItems[i].viewMeter + ' times. And was selected ' + MarketItem.allItems[i].clickMeter + ' times.';
       domListHead.appendChild(domListItem);
         }
-  }else{
+  } else if (booleanProperClick === true){
     renderSimulation();
   }
   
