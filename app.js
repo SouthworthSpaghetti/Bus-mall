@@ -11,7 +11,8 @@ var rightIndex = null;
 
 var selectionTally = 0;
 var selectionThreshold = 4;
-
+var recordLastView = [];
+recordLastView.length = 3;
 
 var handleDomSelection = function(event){
   event.preventDefault();
@@ -66,7 +67,10 @@ var handleDomSelection = function(event){
   }
 }
 
+
+
 domSimulatorParent.addEventListener('click', handleDomSelection);
+
 
 
 
@@ -80,6 +84,8 @@ function renderSimulation(){
     rightIndex = getRandomItem();
   } while(leftIndex === rightIndex || middleIndex === rightIndex);
 
+  recordLastView = [leftIndex, middleIndex, rightIndex];
+
   MarketItem.allItems[leftIndex].viewMeter++;
   MarketItem.allItems[middleIndex].viewMeter++;
   MarketItem.allItems[rightIndex].viewMeter++;
@@ -90,8 +96,15 @@ function renderSimulation(){
 
 
 function getRandomItem(){
-  var itemIndex = Math.floor(Math.random() * (MarketItem.allItems.length));
+  do{
+    var itemIndex = Math.floor(Math.random() * (MarketItem.allItems.length));
+    console.log(itemIndex);
+    console.log(recordLastView);
+  } while (recordLastView.includes(itemIndex));
+  
   return itemIndex;
+
+
 }
 
 function MarketItem(name, srcImage){
