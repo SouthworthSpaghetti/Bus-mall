@@ -10,8 +10,9 @@ var middleIndex = null;
 var rightIndex = null;
 
 var selectionTally = 0;
-var selectionThreshold = 4;
-
+var selectionThreshold = 25;
+var recordLastView = [];
+recordLastView.length = 3;
 
 var handleDomSelection = function(event){
   event.preventDefault();
@@ -55,20 +56,25 @@ var handleDomSelection = function(event){
     //     domListItem.textContent = MarketItem.allItems.name + ' was viewed a total of ' + MarketItem.allItems.viewMeter + ' times. And was selected ' + finalTally[i] + ' times.';
     // var finalTally = MarketItem.allItems.clickMeter(function(a , b){return b - a});
 
-    var domListHead = document.getElementById('listOfFavoriteItems');
-    for(var i = 0; i < MarketItem.allItems.length; i++){
-      var domListItem = document.createElement('li');
-      domListItem.textContent = MarketItem.allItems[i].name + ' was viewed a total of ' + MarketItem.allItems[i].viewMeter + ' times. And was selected ' + MarketItem.allItems[i].clickMeter + ' times.';
-      domListHead.appendChild(domListItem);
-    }
+
+
+    renderChart();
+
+
+    //DISPALY RESULTS LIST
+    // var domListHead = document.getElementById('listOfFavoriteItems');
+    // for(var i = 0; i < MarketItem.allItems.length; i++){
+    //   var domListItem = document.createElement('li');
+    //   domListItem.textContent = MarketItem.allItems[i].name + ' was viewed a total of ' + MarketItem.allItems[i].viewMeter + ' times. And was selected ' + MarketItem.allItems[i].clickMeter + ' times.';
+    //   domListHead.appendChild(domListItem);
+    //END DISPALY RESULTS LIST
+
   } else if (booleanProperClick === true){
     renderSimulation();
   }
-}
+};
 
 domSimulatorParent.addEventListener('click', handleDomSelection);
-
-
 
 function renderSimulation(){
   do{
@@ -80,6 +86,8 @@ function renderSimulation(){
     rightIndex = getRandomItem();
   } while(leftIndex === rightIndex || middleIndex === rightIndex);
 
+  recordLastView = [leftIndex, middleIndex, rightIndex];
+
   MarketItem.allItems[leftIndex].viewMeter++;
   MarketItem.allItems[middleIndex].viewMeter++;
   MarketItem.allItems[rightIndex].viewMeter++;
@@ -90,8 +98,15 @@ function renderSimulation(){
 
 
 function getRandomItem(){
-  var itemIndex = Math.floor(Math.random() * (MarketItem.allItems.length));
+  do{
+    var itemIndex = Math.floor(Math.random() * (MarketItem.allItems.length));
+    console.log(itemIndex);
+    console.log(recordLastView);
+  } while (recordLastView.includes(itemIndex));
+
   return itemIndex;
+
+
 }
 
 function MarketItem(name, srcImage){
@@ -102,6 +117,123 @@ function MarketItem(name, srcImage){
   MarketItem.allItems.push(this);
 
 }
+
+function renderChart(){
+  //GLOBAL DECLARATIONS UNWRAPPING
+  var chartNameArray = [];
+  var chartClickArray = [];
+  var chartViewArray = [];
+  // for (var i = 0; i < chartArray.length; i++){
+  for (var ii = 0; ii < MarketItem.allItems.length; ii++){
+    chartNameArray.push(MarketItem.allItems[ii].name);
+    chartClickArray.push(MarketItem.allItems[ii].clickMeter);
+    chartViewArray.push(MarketItem.allItems[ii].viewMeter);
+  }
+
+  var randomColor = [];
+  for (var j = 0; j < MarketItem.allItems.length; j++){
+    do{
+      var newColor = Math.floor(Math.random() * 16777215).toString(16);
+    }
+    while (randomColor.includes(newColor));
+    randomColor.push('#' + newColor);
+  }
+  console.log(randomColor);
+
+  //DOM CHART STUFF
+  var canvas = document.getElementById('whiteboard');
+  var ctx = canvas.getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: chartNameArray,
+      // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: chartClickArray,
+        // data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          randomColor[0],
+          randomColor[1],
+          randomColor[2],
+          randomColor[3],
+          randomColor[4],
+          randomColor[5],
+          randomColor[6],
+          randomColor[7],
+          randomColor[8],
+          randomColor[9],
+          randomColor[10],
+          randomColor[11],
+          randomColor[12],
+          randomColor[13],
+          randomColor[14],
+          randomColor[15],
+          randomColor[16],
+          randomColor[17],
+          randomColor[18],
+          randomColor[19]
+        ],
+        borderColor: [
+          // 'black'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# of Views',
+        data: chartViewArray,
+        // data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          // 'black'
+        ],
+        borderColor: [
+          // 'black'
+        ],
+        borderWidth: 1
+      }
+      ]
+      //
+      // datasets: [{
+      //   label: '# of Views',
+      //   data: chartViewArray,
+      //   // data: [12, 19, 3, 5, 2, 3],
+      //   backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      //   backgroundColor: [
+      //     'rgba(255, 99, 132, 0.2)',
+      //     'rgba(54, 162, 235, 0.2)',
+      //     'rgba(255, 206, 86, 0.2)',
+      //     'rgba(75, 192, 192, 0.2)',
+      //     'rgba(153, 102, 255, 0.2)',
+      //     'rgba(255, 159, 64, 0.2)'
+      //   ],
+      //   borderColor: [
+      //     'rgba(255, 99, 132, 1)',
+      //     'rgba(54, 162, 235, 1)',
+      //     'rgba(255, 206, 86, 1)',
+      //     'rgba(75, 192, 192, 1)',
+      //     'rgba(153, 102, 255, 1)',
+      //     'rgba(255, 159, 64, 1)'
+      //   ],
+      //   borderWidth: 1
+      // }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+}
+
+
+
+
+
 MarketItem.allItems = [];
 
 new MarketItem('bubblegum','/img/bubblegum.jpg');
@@ -109,7 +241,7 @@ new MarketItem('breakfast', '/img/breakfast.jpg');
 new MarketItem('boots', '/img/boots.jpg');
 new MarketItem('bathroom', '/img/bathroom.jpg');
 new MarketItem('chair', '/img/chair.jpg');
-new MarketItem('cthulhu', '/img/cthulhu.jpg')
+new MarketItem('cthulhu', '/img/cthulhu.jpg');
 new MarketItem('dog-duck', '/img/dog-duck.jpg');
 new MarketItem('dragon', '/img/dragon.jpg');
 new MarketItem('pen', '/img/pen.jpg');
