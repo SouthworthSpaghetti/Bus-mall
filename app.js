@@ -14,6 +14,8 @@ var selectionThreshold = 25;
 var recordLastView = [];
 recordLastView.length = 3;
 
+
+
 var handleDomSelection = function(event){
   event.preventDefault();
   var itemSelected = event.target.id;
@@ -37,7 +39,7 @@ var handleDomSelection = function(event){
   default:
     alert('Please do kindly select the one item you would prefer to buy.');
   }
-
+  updateLocalStorage();//JAN22
   if (selectionTally === selectionThreshold){
     domSimulatorParent.removeEventListener('click', handleDomSelection);
     alert('Thanks for your important feedback. We appreciate your support.');
@@ -94,6 +96,7 @@ function renderSimulation(){
   domSimulatorLeft.src = MarketItem.allItems[leftIndex].srcImage;
   domSimulatorMiddle.src = MarketItem.allItems[middleIndex].srcImage;
   domSimulatorRight.src = MarketItem.allItems[rightIndex].srcImage;
+  updateLocalStorage();//JAN22
 }
 
 
@@ -115,7 +118,8 @@ function MarketItem(name, srcImage){
   this.clickMeter = 0;
   this.viewMeter = 0;
   MarketItem.allItems.push(this);
-
+  updateLocalStorage();
+  
 }
 
 function renderChart(){
@@ -152,28 +156,30 @@ function renderChart(){
         label: '# of Votes',
         data: chartClickArray,
         // data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          randomColor[0],
-          randomColor[1],
-          randomColor[2],
-          randomColor[3],
-          randomColor[4],
-          randomColor[5],
-          randomColor[6],
-          randomColor[7],
-          randomColor[8],
-          randomColor[9],
-          randomColor[10],
-          randomColor[11],
-          randomColor[12],
-          randomColor[13],
-          randomColor[14],
-          randomColor[15],
-          randomColor[16],
-          randomColor[17],
-          randomColor[18],
-          randomColor[19]
-        ],
+        backgroundColor: randomColor
+        // [
+        //   randomColor[0],
+        //   randomColor[1],
+        //   randomColor[2],
+        //   randomColor[3],
+        //   randomColor[4],
+        //   randomColor[5],
+        //   randomColor[6],
+        //   randomColor[7],
+        //   randomColor[8],
+        //   randomColor[9],
+        //   randomColor[10],
+        //   randomColor[11],
+        //   randomColor[12],
+        //   randomColor[13],
+        //   randomColor[14],
+        //   randomColor[15],
+        //   randomColor[16],
+        //   randomColor[17],
+        //   randomColor[18],
+        //   randomColor[19]
+        // ]
+        ,
         borderColor: [
           // 'black'
         ],
@@ -236,7 +242,27 @@ function renderChart(){
 
 MarketItem.allItems = [];
 
+function updateLocalStorage() {
+  var storageArrayStringify = JSON.stringify(MarketItem.allItems);
+  localStorage.setItem('marketItemCampaign', storageArrayStringify);
+}
+
+function writeFromLocalStorage(){
+  var storageArrayParse = JSON.parse(localStorage.getItem('marketItemCampaign'));
+  console.log('storageArrayParse' + storageArrayParse.length);
+  for (var i = 0; i < storageArrayParse.length; i++){
+    new MarketItem(storageArrayParse[i].name, storageArrayParse[i].srcImage);
+    console.log('Click meter' + MarketItem.allItems[i].clickMeter);
+    MarketItem.allItems[i].clickMeter = storageArrayParse[i].clickMeter;
+    MarketItem.allItems[i].viewMeter = storageArrayParse[i].viewMeter;
+  }
+}//JAN22
+
+
+
+if (localStorage.length < 1){
 new MarketItem('bubblegum','/img/bubblegum.jpg');
+console.log('Creating');
 new MarketItem('breakfast', '/img/breakfast.jpg');
 new MarketItem('boots', '/img/boots.jpg');
 new MarketItem('bathroom', '/img/bathroom.jpg');
@@ -256,6 +282,11 @@ new MarketItem('water - can','/img/water-can.jpg');
 new MarketItem('wine-glass', '/img/wine-glass.jpg');
 new MarketItem('bag', '/img/bag.jpg');
 new MarketItem('banana', '/img/banana.jpg');
-
+} else {
+  writeFromLocalStorage();
+};
+// } else {
+  // writeOverLocalStorage();//Jan22
+// }
 
 renderSimulation();
