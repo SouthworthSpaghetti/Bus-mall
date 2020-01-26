@@ -2,12 +2,41 @@ section {
   height: 400px;
   width: 900px;
   float: left;
-  margin-left: 75px;
+  margin-left: 50px;
 }
 
 img {
+  transition-timing-function: ease-in-out;
   height: 250px;
   width: 250px;
+  margin-top: 25px;
+}
+
+img:hover {
+  margin-top: 0px;
+  height: 275px;
+  width: 275px;
+  animation-name: boogy;
+   animation-duration: 500ms;
+  animation-iteration-count: 1;
+}
+
+img:active {
+  filter: invert(20%);
+  
+ 
+}
+
+@keyframes boogy{
+  0% {
+  transform: translateX(-15px);
+  }
+  12%{
+  
+  }
+  25%{
+  transform: translateY(-5px);
+  }
 }
 
 #whiteboard {

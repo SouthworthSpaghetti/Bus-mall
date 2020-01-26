@@ -249,7 +249,7 @@ function updateLocalStorage() {
 
 function writeFromLocalStorage(){
   var storageArrayParse = JSON.parse(localStorage.getItem('marketItemCampaign'));
-  console.log('storageArrayParse' + storageArrayParse.length);
+  // console.log('storageArrayParse' + storageArrayParse.length);
   for (var i = 0; i < storageArrayParse.length; i++){
     new MarketItem(storageArrayParse[i].name, storageArrayParse[i].srcImage);
     console.log('Click meter' + MarketItem.allItems[i].clickMeter);
@@ -286,7 +286,7 @@ new MarketItem('banana', '/img/banana.jpg');
   writeFromLocalStorage();
 };
 // } else {
-  // writeOverLocalStorage();//Jan22
+//   writeOverLocalStorage();//Jan22
 // }
 
 renderSimulation();
