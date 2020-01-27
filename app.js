@@ -261,27 +261,27 @@ function writeFromLocalStorage(){
 
 
 if (localStorage.length < 1){
-new MarketItem('bubblegum','/img/bubblegum.jpg');
+new MarketItem('bubblegum','img/bubblegum.jpg');
 console.log('Creating');
-new MarketItem('breakfast', '/img/breakfast.jpg');
-new MarketItem('boots', '/img/boots.jpg');
-new MarketItem('bathroom', '/img/bathroom.jpg');
-new MarketItem('chair', '/img/chair.jpg');
-new MarketItem('cthulhu', '/img/cthulhu.jpg');
-new MarketItem('dog-duck', '/img/dog-duck.jpg');
-new MarketItem('dragon', '/img/dragon.jpg');
-new MarketItem('pen', '/img/pen.jpg');
-new MarketItem('pet-sweep', '/img/pet-sweep.jpg');
-new MarketItem('scissors', '/img/scissors.jpg');
-new MarketItem('shark', '/img/shark.jpg');
-new MarketItem('sweep', '/img/sweep.png');
-new MarketItem('tauntaun', '/img/tauntaun.jpg');
-new MarketItem('unicorn', '/img/unicorn.jpg');
-new MarketItem('usb', '/img/usb.gif');
-new MarketItem('water - can','/img/water-can.jpg');
-new MarketItem('wine-glass', '/img/wine-glass.jpg');
-new MarketItem('bag', '/img/bag.jpg');
-new MarketItem('banana', '/img/banana.jpg');
+new MarketItem('breakfast', 'img/breakfast.jpg');
+new MarketItem('boots', 'img/boots.jpg');
+new MarketItem('bathroom', 'img/bathroom.jpg');
+new MarketItem('chair', 'img/chair.jpg');
+new MarketItem('cthulhu', 'img/cthulhu.jpg');
+new MarketItem('dog-duck', 'img/dog-duck.jpg');
+new MarketItem('dragon', 'img/dragon.jpg');
+new MarketItem('pen', 'img/pen.jpg');
+new MarketItem('pet-sweep', 'img/pet-sweep.jpg');
+new MarketItem('scissors', 'img/scissors.jpg');
+new MarketItem('shark', 'img/shark.jpg');
+new MarketItem('sweep', 'img/sweep.png');
+new MarketItem('tauntaun', 'img/tauntaun.jpg');
+new MarketItem('unicorn', 'img/unicorn.jpg');
+new MarketItem('usb', 'img/usb.gif');
+new MarketItem('water - can','img/water-can.jpg');
+new MarketItem('wine-glass', 'img/wine-glass.jpg');
+new MarketItem('bag', 'img/bag.jpg');
+new MarketItem('banana', 'img/banana.jpg');
 } else {
   writeFromLocalStorage();
 };
